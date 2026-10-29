@@ -15,14 +15,14 @@ jobs:
         with:
             version: "latest"
 
-      # 2. Tell uv to install and pin Python 3.12
       - name: Set up Python 3.12
         run: uv python install 3.12
 
       - name: Install Ansible
         shell: bash
         run: |
-          uv pip install ansible-core
+          uv tool install --with-executables-from ansible-core ansible
+
 
       - name: Run Ansible playbook on this runner
         shell: bash
