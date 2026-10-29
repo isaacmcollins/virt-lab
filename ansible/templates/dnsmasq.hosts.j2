@@ -1,0 +1,4 @@
+# Custom DNS entries managed by Ansible
+{% for record in dnsmasq_dns_records %}
+{{ record.ip }} {{ record.host }}
+{% endfor %}

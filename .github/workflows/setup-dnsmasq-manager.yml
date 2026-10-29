@@ -1,0 +1,35 @@
+name: Setup dnsmasq on manager runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dnsmasq:
+    runs-on: [self-hosted, linux, manager]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Ansible
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ansible-core
+
+      - name: Run Ansible playbook on this runner
+        shell: bash
+        run: |
+          cd ./ansible
+          ansible-playbook \
+            -i inventory.ini \
+            dnsmasq-playbook.yml
+
+      - name: Confirm dnsmasq is running
+        shell: bash
+        run: |
+          systemctl is-active --quiet dnsmasq || service dnsmasq status

@@ -1,0 +1,8 @@
+---
+dnsmasq_listen_address: "{{ ansible_default_ipv4.address }}"
+dnsmasq_domain: "local"
+dnsmasq_upstream_server: "1.1.1.1"
+
+dnsmasq_dns_records:
+  - { ip: "192.168.0.200", host: "host-1.local" }
+  - { ip: "192.168.0.201", host: "host-2.local" }

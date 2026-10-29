@@ -1,0 +1,14 @@
+# /etc/dnsmasq.conf managed by Ansible
+
+listen-address={{ dnsmasq_listen_address }}
+bind-interfaces
+domain={{ dnsmasq_domain }}
+server={{ dnsmasq_upstream_server }}
+
+# Core rules
+domain-needed
+bogus-priv
+expand-hosts
+
+# Load your custom DNS addresses from this separate file
+addn-hosts=/etc/dnsmasq.hosts
