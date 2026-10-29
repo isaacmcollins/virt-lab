@@ -1,4 +1,4 @@
-name: Setup dnsmasq on manager runner
+name: Setup dnsmasq on manager
 
 on:
   workflow_dispatch:
