@@ -18,11 +18,14 @@ jobs:
       - name: Set up Python 3.12
         run: uv python install 3.12
 
-      - name: Install Ansible
+      - name: Ensure Ansible is available
         shell: bash
         run: |
-          uv tool install --with-executables-from ansible-core ansible
+          if ! command -v ansible-playbook >/dev/null 2>&1; then
+            uv tool install --with-executables-from ansible-core ansible
+          fi
           command -v ansible-playbook
+          ansible-playbook --version
 
       - name: Run Ansible playbook on this runner
         shell: bash
