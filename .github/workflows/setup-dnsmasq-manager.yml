@@ -22,6 +22,7 @@ jobs:
         shell: bash
         run: |
           uv tool install --with-executables-from ansible-core ansible
+          uv tool update shell
 
 
       - name: Run Ansible playbook on this runner
