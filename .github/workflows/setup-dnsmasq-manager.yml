@@ -21,11 +21,11 @@ jobs:
       - name: Ensure Ansible is available
         shell: bash
         run: |
-          if ! command -v ansible-playbook >/dev/null 2>&1; then
-            uv tool install --with-executables-from ansible-core ansible
-          fi
-          command -v ansible-playbook
-          ansible-playbook --version
+          if ! uv tool list | grep -q "^ansible "; then
+                uv tool install --with-executables-from ansible-core ansible
+            else
+                ansible-playbook --version
+            fi
 
       - name: Run Ansible playbook on this runner
         shell: bash
