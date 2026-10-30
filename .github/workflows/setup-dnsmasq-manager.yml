@@ -13,25 +13,15 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@v3
         with:
+            enable-cache: true
             version: "latest"
-
-      - name: Set up Python 3.12
-        run: uv python install 3.12
-
-      - name: Ensure Ansible is available
-        shell: bash
-        run: |
-          if ! uv tool list | grep -q "^ansible "; then
-                uv tool install --with-executables-from ansible-core ansible
-            else
-                ansible-playbook --version
-            fi
 
       - name: Run Ansible playbook on this runner
         shell: bash
         run: |
           cd ./ansible
-          ansible-playbook \
+          uv run --with ansible-core \
+            ansible-playbook \
             -i inventory.ini \
             dnsmasq-playbook.yml
 
